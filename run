@@ -1,0 +1,2 @@
+java -Dcom.sun.jndi.ldap.object.trustURLCodebase=true -cp "lib/*:." WebApp
+
