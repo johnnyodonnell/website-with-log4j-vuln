@@ -36,7 +36,13 @@ public class WebApp {
     }
 
     public static void main(String[] args) throws Exception {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8010), 0);
+        int port = 8010;
+        String stringPort = System.getenv("COOKIES_PORT");
+        if (stringPort != null) {
+            port = new Integer(stringPort);
+        }
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new IndexHandler());
         server.start();
         logger.error("Server started...");
