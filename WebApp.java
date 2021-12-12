@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -5,6 +6,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -65,6 +67,16 @@ public class WebApp {
                 String cc = getValue(params[2]);
 
                 String entry = String.join(",", name, qty, cc) + "\n";
+
+                String filename = "database.csv";
+
+                // Create file if it does not already exist
+                new File(filename).createNewFile();
+
+                Files.write(
+                        Paths.get(filename),
+                        entry.getBytes(),
+                        StandardOpenOption.APPEND);
 
                 logger.error(name + " just ordered " + qty + " cookies.");
 
