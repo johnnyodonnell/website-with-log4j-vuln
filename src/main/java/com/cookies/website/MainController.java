@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
+
+    private final static Logger logger = LogManager.getLogger();
 
     @GetMapping("/")
     public String main() {
@@ -39,6 +43,8 @@ public class MainController {
                 Paths.get(filename),
                 entry.getBytes(),
                 StandardOpenOption.APPEND);
+
+        logger.info(name + " just ordered " + qty + " cookies.");
 
         response.sendRedirect("/success.html");
     }
